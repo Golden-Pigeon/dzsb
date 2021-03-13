@@ -1,0 +1,35 @@
+server:
+  port: 8080
+  ssl:
+
+    enabled: true
+    key-store: classpath:5307296_goldenpigeon.top.pfx
+    key-store-type: pkcs12
+    key-alias: alias
+    key-password: 0N9dGSJp
+    key-store-password: 0N9dGSJp
+
+spring:
+  profiles:
+    active: pro
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dzsb?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: 8721818
+  redis:
+    database: 0
+    host: 127.0.0.1
+
+    port: 6379
+  jpa:
+    hibernate:
+      # 在程序启动时更新实体类对应的表
+      ddl-auto: update
+    # 在日志中打印出执行的SQL语句信息
+    show-sql: true
+    naming:
+      physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
