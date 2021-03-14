@@ -49,7 +49,13 @@ public enum ResultEnum {
 
     USER_LOGINED(20008, "用户名已登录"),
 
-    VIDEO_PLAY_EXCEPTION(20009, "视频播放出现异常");
+    VIDEO_PLAY_EXCEPTION(20009, "视频播放出现异常"),
+
+    FILE_NOT_EXIST(20010, "文件不存在"),
+
+    CAL_FAILED(20011, "计算失败(data中为算法服务器传递的信息)"),
+
+    REQUEST_FAILED(20012, "请求失败");
 
     private final Integer code;
     
