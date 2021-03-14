@@ -27,8 +27,8 @@ public class UserController {
     @PostMapping("/login")
     @ResponseBody
     public ResultDTO login(@RequestParam String code,
-                           @RequestParam String name,
-                           @RequestParam String avatar) {
+                           @RequestParam(required = false) String name,
+                           @RequestParam(required = false) String avatar) {
         return userService.login(code, name, avatar);
     
     }

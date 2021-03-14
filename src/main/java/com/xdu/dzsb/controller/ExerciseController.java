@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author: wjy
@@ -39,16 +40,14 @@ public class ExerciseController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResultDTO upload(@RequestParam Integer type,
-                           @RequestParam String sport,
-                           @RequestParam MultipartFile video) {
+    public ResultDTO upload(@RequestParam MultipartFile video) {
         if(video.isEmpty()){
             return new ResultDTO(ResultEnum.UPLOAD_FAILED);
         }
         String fileName;
         String filePath;
         fileName = video.getOriginalFilename();
-        filePath = "./temp/mv/";
+        filePath = "/tmp/dzsb/mv/";
         File file = new File(filePath + fileName);
         try {
             if(!file.getParentFile().exists())
@@ -71,8 +70,10 @@ public class ExerciseController {
     @ResponseBody
     public ResultDTO playVideo(HttpServletRequest request, HttpServletResponse response){
         try {
-            String sourcePath = ClassUtils.getDefaultClassLoader().getResource("").getPath().substring(1);
-            String realPath = sourcePath +"static/video/1.mp4";
+            String filename = request.getParameter("filename");
+//            String sourcePath = Objects.requireNonNull(Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).getResource("")).getPath().substring(1);
+            String realPath = "/mnt/dzsb/mv/" + filename;
+
 
 
             Path filePath = Paths.get(realPath );

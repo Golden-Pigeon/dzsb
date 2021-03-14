@@ -18,16 +18,14 @@ public class AppExerciseController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResultDTO upload(@RequestParam Integer type,
-                            @RequestParam String sport,
-                            @RequestParam MultipartFile video) {
+    public ResultDTO upload(@RequestParam MultipartFile video) {
         if(video.isEmpty()){
             return new ResultDTO(ResultEnum.UPLOAD_FAILED);
         }
         String fileName;
         String filePath;
         fileName = video.getOriginalFilename();
-        filePath = "D:/Temp/mv/";
+        filePath = "/tmp/dzsb/mv/";
         File file = new File(filePath + fileName);
         try {
             if(!file.getParentFile().exists())
