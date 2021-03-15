@@ -28,7 +28,7 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
         // addPathPatterns("/**") 表示拦截所有的请求。
         // excludePathPatterns("/user/login"); //表示登录接口不拦截。
         registry.addInterceptor(appLoginInterceptor).addPathPatterns("/app/**").excludePathPatterns("/app/user/login", "/app/user/register");
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/user", "/exercise").excludePathPatterns("/user/login", "/epidemic");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/user/**", "/exercise/**").excludePathPatterns("/user/login", "/epidemic", "/user/test");
         super.addInterceptors(registry);
     }
 }
