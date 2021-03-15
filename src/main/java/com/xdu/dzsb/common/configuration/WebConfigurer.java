@@ -1,5 +1,7 @@
-package com.xdu.dzsb.common.interceptor;
+package com.xdu.dzsb.common.configuration;
 
+import com.xdu.dzsb.common.interceptor.AppLoginInterceptor;
+import com.xdu.dzsb.common.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

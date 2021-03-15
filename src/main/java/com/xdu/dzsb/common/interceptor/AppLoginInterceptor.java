@@ -16,7 +16,7 @@ public class AppLoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String session = request.getParameter("session");
+        String session = request.getHeader("session");
         String username = request.getHeader("userName");
         Boolean b1 = redisOperator.hasKey(username);
         if(!b1)
