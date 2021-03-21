@@ -131,7 +131,7 @@ public class ExerciseController {
         try {
             String filename = request.getParameter("filename");
 //            String sourcePath = Objects.requireNonNull(Objects.requireNonNull(ClassUtils.getDefaultClassLoader()).getResource("")).getPath().substring(1);
-            String realPath = "D:/tmp/dzsb/mv/" + filename;
+            String realPath = "/tmp/dzsb/mv/" + filename;
 
 
 

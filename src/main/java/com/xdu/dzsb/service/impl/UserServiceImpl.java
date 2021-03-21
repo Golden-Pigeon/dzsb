@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userRepository.findByOpenid(openid);
         if (user.isPresent()) {
             //用户已经登陆过
-            userRepository.updateAvatarUrl(user.get().getOpenid(), avatarUrl);
+            userRepository.updateAvatarUrlByOpenid(user.get().getOpenid(), avatarUrl);
             redisOperator.set(session, session_key, VariableEnum.LOGIN_TIMEOUT.getValue());
             res.put("id", user.get().getOpenid());
         } else {
@@ -141,6 +141,7 @@ public class UserServiceImpl implements UserService {
 
         if(u.getLastCheckDate() == null) {
             u.setAccomplishedDays(1);
+            u.setContinueExerciseDays(1);
             u.setLastCheckDate(new Date(System.currentTimeMillis()));
         }
         else{
@@ -155,10 +156,10 @@ public class UserServiceImpl implements UserService {
                 u.setLastCheckDate(today);
                 u.setContinueExerciseDays(1);
             }
-
+            u.setAccomplishedDays(u.getAccomplishedDays() + 1);
         }
 
-        u.setAccomplishedDays(u.getAccomplishedDays() + 1);
+
         u.setTotalExerciseDays(u.getTotalExerciseDays() + 1);
         userRepository.save(u);
         return new ResultDTO(ResultEnum.SUCCESS);

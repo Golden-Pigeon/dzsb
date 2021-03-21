@@ -27,13 +27,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     
     @Transactional
     @Modifying
-    @Query("UPDATE User user set user.avatar_url = :avatar_url WHERE user.openid = :openid")
-    void updateAvatarUrl(@Param("openid") String openid, @Param("avatar_url") String avatar_url);
-    
-    @Transactional
-    @Modifying
-    @Query("UPDATE User user set user.sex = :sex, user.birthday = :birthday, user.bust = :bust, user.waistline = :waistline, user.hipline = :hipline, user.signature = :signature, user.height = :height, user.weight = :weight WHERE user.id = :userId")
-    void updateNameAndAvatar(@Param("userId") Integer userId, @Param("sex") Integer sex, @Param("birthday") Date birthday,
-                             @Param("bust") Integer bust, @Param("waistline") Integer waistline, @Param("hipline") Integer hipline,
-                             @Param("signature") String signature, @Param("height") Integer height, @Param("weight") Integer weight);
+    @Query("UPDATE User user set user.avatarUrl = :avatar_url WHERE user.openid = :openid")
+    void updateAvatarUrlByOpenid(@Param("openid") String openid, @Param("avatar_url") String avatar_url);
+
+//    @Transactional
+//    @Modifying
+//    @Query("UPDATE User user set user.sex = :sex, user.birthday = :birthday, user.bust = :bust, user.waistline = :waistline, user.hipline = :hipline, user.signature = :signature, user.height = :height, user.weight = :weight WHERE user.id = :userId")
+//    void updateNameAndAvatar(@Param("userId") Integer userId, @Param("sex") Integer sex, @Param("birthday") Date birthday,
+//                             @Param("bust") Integer bust, @Param("waistline") Integer waistline, @Param("hipline") Integer hipline,
+//                             @Param("signature") String signature, @Param("height") Integer height, @Param("weight") Integer weight);
 }
