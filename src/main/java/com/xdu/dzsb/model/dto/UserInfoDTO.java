@@ -47,5 +47,6 @@ public class UserInfoDTO {
     //    @Column(name = "continue_exercise_days", insertable = false)
     private Integer continueExerciseDays;
     private List<ExerciseInfoDTO> detail;
+//    private List<BriefHistoryDTO> brief;
     private Date lastCheckDate;
 }

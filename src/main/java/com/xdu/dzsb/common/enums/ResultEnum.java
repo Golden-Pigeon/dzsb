@@ -59,7 +59,9 @@ public enum ResultEnum {
 
     GOAL_ACCOMPLISHED(20013, "目标已完成，打卡失败"),
 
-    HAVE_CHECKED(20014, "今日已打卡");
+    HAVE_CHECKED(20014, "今日已打卡"),
+
+    NO_HISTORY(20015, "没有记录");
 
     private final Integer code;
     

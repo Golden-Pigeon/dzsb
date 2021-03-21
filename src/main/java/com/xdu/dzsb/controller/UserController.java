@@ -1,6 +1,7 @@
 package com.xdu.dzsb.controller;
 
 import com.xdu.dzsb.model.dto.ResultDTO;
+import com.xdu.dzsb.service.HistoryService;
 import com.xdu.dzsb.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -24,6 +25,9 @@ public class UserController {
     
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private HistoryService historyService;
 
     @ApiOperation("测试接口")
     @GetMapping("/test")
@@ -81,5 +85,15 @@ public class UserController {
     @PostMapping("/clear_accomplished")
     public ResultDTO clearAccomplished(@RequestParam String openid){
         return userService.clearAccomplished(openid);
+    }
+
+    @PostMapping("/get_history/brief")
+    public ResultDTO getBriefHistory(@RequestParam String openid){
+        return historyService.getBriefHistories(openid);
+    }
+
+    @PostMapping("/get_history/detailed")
+    public ResultDTO getDetailedHistories(@RequestParam Integer id){
+        return historyService.getDetailedHistory(id);
     }
 }

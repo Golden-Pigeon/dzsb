@@ -6,16 +6,20 @@ import com.xdu.dzsb.common.enums.VariableEnum;
 import com.xdu.dzsb.common.enums.WechatEnum;
 import com.xdu.dzsb.common.utils.HttpClientUtil;
 import com.xdu.dzsb.common.utils.MathUtil;
+import com.xdu.dzsb.model.dto.BriefHistoryDTO;
 import com.xdu.dzsb.model.dto.ExerciseInfoDTO;
 import com.xdu.dzsb.model.dto.ResultDTO;
 import com.xdu.dzsb.model.dto.UserInfoDTO;
+import com.xdu.dzsb.model.entity.History;
 import com.xdu.dzsb.model.entity.User;
+import com.xdu.dzsb.repository.HistoryRepository;
 import com.xdu.dzsb.repository.UserRepository;
 import com.xdu.dzsb.service.UserService;
 import com.xdu.dzsb.service.base.RedisOperator;
 import io.netty.util.internal.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -34,7 +38,10 @@ public class UserServiceImpl implements UserService {
     private RedisOperator redisOperator;
     @Autowired
     private UserRepository userRepository;
-    
+
+    @Autowired
+    private HistoryRepository historyRepository;
+
     @Override
     public ResultDTO login(String code, String avatarUrl) {
         Map<String, String> param = new HashMap<>();
@@ -83,6 +90,12 @@ public class UserServiceImpl implements UserService {
             User u = user.get();
             resultDTO = new ResultDTO(ResultEnum.SUCCESS);
             List<ExerciseInfoDTO> detail = new ArrayList<>();
+//            List<BriefHistoryDTO> brief = new ArrayList<>();
+//            List<History> histories = historyRepository.findAllByOpenid(openId);
+//            for(History history : histories){
+//                brief.add(new BriefHistoryDTO(history.getId(), history.getOpenid(),
+//                        history.getVideoPath(), history.getAction(), history.getDate()));
+//            }
             UserInfoDTO userInfoDTO = new UserInfoDTO(u.getOpenid(), u.getNickname(), u.getSex(), u.getBirthday()
             , u.getAvatarUrl(), u.getHeight(), u.getWeight(), u.getGoalDays(), u.getAccomplishedDays()
             , u.getTotalExerciseDays(), u.getContinueExerciseDays(), detail, u.getLastCheckDate());

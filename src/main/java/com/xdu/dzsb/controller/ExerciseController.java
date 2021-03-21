@@ -89,7 +89,7 @@ public class ExerciseController {
             return result;
         }
         else{
-            String videoBase = "https://goldenpigeon.top/exercise/play_video?filename=";
+            String videoBase = "https://goldenpigeon.top:8080/exercise/play_video?filename=";
             ResultDTO result = new ResultDTO(ResultEnum.SUCCESS);
             Map<String, String> data = new HashMap<>();
             data.put("video_path", videoBase + fileName);
