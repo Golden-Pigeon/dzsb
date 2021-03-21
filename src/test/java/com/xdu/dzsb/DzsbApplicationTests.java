@@ -11,7 +11,7 @@ class DzsbApplicationTests {
     UserService userService;
     @Test
     void contextLoads() {
-        System.out.println(userService.getUserInfo(1));
+        System.out.println(userService.getUserInfo(""));
     }
 
 }

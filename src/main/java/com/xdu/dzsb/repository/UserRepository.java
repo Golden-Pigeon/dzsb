@@ -22,13 +22,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     
     Optional<User> findByOpenid(String openid);
     
-    @Override
-    Optional<User> findById(Integer id);
+//    @Override
+//    Optional<User> findByOpenid(String openid);
     
     @Transactional
     @Modifying
-    @Query("UPDATE User user set user.name = :name, user.avatar = :avatar WHERE user.id = :id")
-    void updateNameAndAvatar(@Param("id") Integer id, @Param("name") String name, @Param("avatar") String avatar);
+    @Query("UPDATE User user set user.avatar_url = :avatar_url WHERE user.openid = :openid")
+    void updateAvatarUrl(@Param("openid") String openid, @Param("avatar_url") String avatar_url);
     
     @Transactional
     @Modifying

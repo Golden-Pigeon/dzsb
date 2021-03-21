@@ -55,7 +55,11 @@ public enum ResultEnum {
 
     CAL_FAILED(20011, "计算失败(data中为算法服务器传递的信息)"),
 
-    REQUEST_FAILED(20012, "请求失败");
+    REQUEST_FAILED(20012, "请求失败"),
+
+    GOAL_ACCOMPLISHED(20013, "目标已完成，打卡失败"),
+
+    HAVE_CHECKED(20014, "今日已打卡");
 
     private final Integer code;
     

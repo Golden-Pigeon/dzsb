@@ -11,9 +11,15 @@ import java.sql.Date;
  */
 public interface UserService {
     
-    ResultDTO login(String code, String name, String avatar);
+    ResultDTO login(String code, String avatarUrl);
     
-    ResultDTO getUserInfo(Integer userId);
+    ResultDTO getUserInfo(String openid);
     
-    ResultDTO updateUserInfo(Integer userId, Integer sex, Date birthday, Integer bust, Integer waistline, Integer hipline, String signature, Integer height, Integer weight);
+    ResultDTO updateUserInfo(String openid, String nickname, Integer sex, Date birthday, String avatarUrl, Double height, Double weight);
+
+    ResultDTO updateGoal(String openid, Integer goal);
+
+    ResultDTO check(String openid);
+
+    ResultDTO clearAccomplished(String openid);
 }

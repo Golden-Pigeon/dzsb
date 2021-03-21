@@ -40,10 +40,8 @@ public class UserController {
             @ApiImplicitParam(paramType = "query", name = "name", value = "用户昵称", required = false, dataType = "String"),
             @ApiImplicitParam(paramType = "query", name = "avatar", value = "用户头像地址", required = false, dataType = "String")
     })
-    public ResultDTO login(@RequestParam String code,
-                           @RequestParam(required = false) String name,
-                           @RequestParam(required = false) String avatar) {
-        return userService.login(code, name, avatar);
+    public ResultDTO login(@RequestParam String code, @RequestParam String avatarUrl) {
+        return userService.login(code, avatarUrl);
     
     }
 
@@ -51,25 +49,37 @@ public class UserController {
     @ApiImplicitParams(
             @ApiImplicitParam(paramType="query", name = "userId", value = "用户id(注意不是openId)", required = true, dataType = "String")
     )
-    @GetMapping("/userInfo")
+    @GetMapping("/user_info")
     @ResponseBody
-    public ResultDTO buildRoom(@RequestParam(value = "userId") Integer userId) {
+    public ResultDTO buildRoom(@RequestParam String openid) {
         
-        return userService.getUserInfo(userId);
+        return userService.getUserInfo(openid);
     }
     
-    @PostMapping("/userInfo")
+    @PostMapping("/user_info_update")
     @ResponseBody
-    public ResultDTO buildRoom(@RequestParam Integer userId,
+    public ResultDTO buildRoom(@RequestParam String openid,
                                @RequestParam Integer sex,
                                @RequestParam Date birthday,
-                               @RequestParam Integer bust,
-                               @RequestParam Integer waistline,
-                               @RequestParam Integer hipline,
-                               @RequestParam String signature,
-                               @RequestParam Integer height,
-                               @RequestParam Integer weight) {
-        
-        return userService.updateUserInfo(userId, sex, birthday, bust, waistline, hipline, signature, height, weight);
+                               @RequestParam String avatarUrl,
+                               @RequestParam Double height,
+                               @RequestParam Double weight,
+                               @RequestParam String nickname) {
+        return userService.updateUserInfo(openid, nickname, sex, birthday, avatarUrl, height, weight);
+    }
+
+    @PostMapping("/set_goal")
+    public ResultDTO setGoal(@RequestParam String openid, @RequestParam Integer goal) {
+        return userService.updateGoal(openid, goal);
+    }
+
+    @PostMapping("/check")
+    public ResultDTO check(@RequestParam String openid){
+        return userService.check(openid);
+    }
+
+    @PostMapping("/clear_accomplished")
+    public ResultDTO clearAccomplished(@RequestParam String openid){
+        return userService.clearAccomplished(openid);
     }
 }
