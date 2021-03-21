@@ -1,21 +1,30 @@
 package com.xdu.dzsb.common.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.Consts;
+import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
@@ -93,6 +102,33 @@ public class HttpClientUtil {
 
         return resultString;
     }
+
+    public static String doFileUpload(File file, String action) throws IOException {
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            //要上传的文件的路径
+
+            //把一个普通参数和文件上传给下面这个地址    是一个servlet
+            HttpPost httpPost = new HttpPost("http://38r3144h99.zicp.vip:58980/for_judge");
+            //把文件转换成流对象FileBody
+            FileBody bin = new FileBody(file);
+            //普通字段  重新设置了编码方式
+
+            HttpEntity reqEntity = MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
+                    .addPart("video", bin)//相当于<input type="file" name="media"/>
+                    .addTextBody("action", action)
+                    .build();
+
+            httpPost.setEntity(reqEntity);
+            //发起请求   并返回请求的响应
+            try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+                return EntityUtils.toString(response.getEntity(), "UTF-8");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
 
     /**
      * 功能描述: 有参数(Json字符串)的POST请求

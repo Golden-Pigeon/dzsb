@@ -16,7 +16,7 @@ import java.sql.Date;
 @Entity
 @Table
 public class User {
-    
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id")
@@ -40,10 +40,35 @@ public class User {
     private Integer totalExerciseDays;
     @Column(name = "continue_exercise_days", insertable = false)
     private Integer continueExerciseDays;
-    
+
     public User(String openid, String name, String avatar) {
         this.openid = openid;
         this.name = name;
         this.avatar = avatar;
     }
 }
+//@Data
+//@NoArgsConstructor
+//@Entity
+//@Table
+//public class User {
+//
+//    @Id
+//    @Column(name = "openid")
+//    private String openid;
+//    private Integer sex;
+//    private Date birthday;
+//    private String avatarUrl;
+//    private Double height;
+//    private Double weight;
+//    @Column(name = "goal_time", insertable = false)
+//    private Integer goalTime;
+//    @Column(name = "total_exercise_days", insertable = false)
+//    private Integer totalExerciseDays;
+//    @Column(name = "continue_exercise_days", insertable = false)
+//    private Integer continueExerciseDays;
+//
+//    public User(String openid, String name, String avatar) {
+//        this.openid = openid;
+//    }
+//}
