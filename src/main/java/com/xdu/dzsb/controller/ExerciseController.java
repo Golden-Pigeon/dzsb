@@ -7,6 +7,7 @@ import com.xdu.dzsb.common.utils.HttpClientUtil;
 import com.xdu.dzsb.common.utils.NonStaticResourceHttpRequestHandler;
 import com.xdu.dzsb.model.dto.ResultDTO;
 import com.xdu.dzsb.service.ExerciseService;
+import com.xdu.dzsb.service.HistoryService;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -29,6 +30,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -46,11 +48,14 @@ public class ExerciseController {
     private ExerciseService exerciseService;
 
     @Autowired
+    private HistoryService historyService;
+
+    @Autowired
     private NonStaticResourceHttpRequestHandler nonStaticResourceHttpRequestHandler;
 
     @PostMapping("/upload/{action}")
     @ResponseBody
-    public ResultDTO upload(@RequestParam MultipartFile video, @PathVariable String action) throws IOException {
+    public ResultDTO upload(@RequestParam String openid, @RequestParam MultipartFile video, @PathVariable String action) throws IOException {
         if(video.isEmpty()){
             return new ResultDTO(ResultEnum.UPLOAD_FAILED);
         }
@@ -98,6 +103,8 @@ public class ExerciseController {
             data.put("error_img", responseJsonObject.getString("error_img"));
             data.put("fitness", responseJsonObject.getString("fitness"));
             data.put("correct_img", responseJsonObject.getString("correct_img"));
+            historyService.saveHistory(openid, videoBase, action, new Date(System.currentTimeMillis()), responseJsonObject.getString("error_img"),
+                    responseJsonObject.getString("correct_img"), responseJsonObject.getString("error_res"), responseJsonObject.getString("advice_res"));
             switch(action){
                 case "fuwocheng":
                     data.put("action", "fuwocheng");
@@ -187,24 +194,24 @@ public class ExerciseController {
 
     }
 
-
-    private FileItem getMultipartFile(File file, String fieldName){
-        FileItemFactory factory = new DiskFileItemFactory(16, null);
-        FileItem item = factory.createItem(fieldName, "text/plain", true, file.getName());
-        int bytesRead = 0;
-        byte[] buffer = new byte[8192];
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            OutputStream os = item.getOutputStream();
-            while ((bytesRead = fis.read(buffer, 0, 8192)) != -1) {
-                os.write(buffer, 0, bytesRead);
-            }
-            os.close();
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return item;
-    }
+//
+//    private FileItem getMultipartFile(File file, String fieldName){
+//        FileItemFactory factory = new DiskFileItemFactory(16, null);
+//        FileItem item = factory.createItem(fieldName, "text/plain", true, file.getName());
+//        int bytesRead = 0;
+//        byte[] buffer = new byte[8192];
+//        try {
+//            FileInputStream fis = new FileInputStream(file);
+//            OutputStream os = item.getOutputStream();
+//            while ((bytesRead = fis.read(buffer, 0, 8192)) != -1) {
+//                os.write(buffer, 0, bytesRead);
+//            }
+//            os.close();
+//            fis.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return item;
+//    }
 
 }

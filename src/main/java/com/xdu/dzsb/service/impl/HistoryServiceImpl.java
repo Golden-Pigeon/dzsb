@@ -45,6 +45,7 @@ public class HistoryServiceImpl implements HistoryService {
             brief.add(new BriefHistoryDTO(history.getId(), history.getOpenid(),
                     history.getVideoPath(), history.getAction(), history.getDate()));
         }
+//        brief.sort();
         ResultDTO result = new ResultDTO(ResultEnum.SUCCESS);
         result.setData(brief);
         return result;
