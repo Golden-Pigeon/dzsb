@@ -13,7 +13,7 @@ import lombok.Getter;
 public enum ResultEnum {
     
     /**
-     * 正常返回(官方)
+     * 正常返回
      */
     SUCCESS(200, "正常返回"),
 

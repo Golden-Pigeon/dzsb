@@ -161,38 +161,38 @@ public class ExerciseController {
         return new ResultDTO(ResultEnum.SUCCESS);
     }
 
-    @PostMapping("/get_result")
-    @ResponseBody
-    public ResultDTO playVideo(@RequestParam String filename, @RequestParam String action){
-        File file = new File("/tmp/dzsb/mv/" + filename);
-        if(!file.exists()){
-            return new ResultDTO(ResultEnum.FILE_NOT_EXIST);
-        }
-        MultipartFile multipartFile = FileUtil.fileToMultipartFile(file);
-        Map<String, Object> postParams = new HashMap<>();
-        postParams.put("video", multipartFile);
-        postParams.put("action", action);
-        String postJson = JSONObject.toJSONString(postParams);
-        String responseJson = HttpClientUtil.doPost1("XXX", postJson);
-        if(StringUtils.isEmpty(responseJson))
-            return new ResultDTO(ResultEnum.REQUEST_FAILED);
-
-        JSONObject responseJsonObject = JSONObject.parseObject(responseJson);
-        if(responseJsonObject.getIntValue("code") != 200){
-            ResultDTO result = new ResultDTO(ResultEnum.CAL_FAILED);
-            result.setData(responseJson);
-            return result;
-        }
-        else{
-            ResultDTO result = new ResultDTO(ResultEnum.SUCCESS);
-            Map<String, String> advice = new HashMap<>();
-            advice.put("error", responseJsonObject.getString("error_res"));
-            advice.put("advice", responseJsonObject.getString("advice_res"));
-            result.setData(advice);
-            return result;
-        }
-
-    }
+//    @PostMapping("/get_result")
+//    @ResponseBody
+//    public ResultDTO playVideo(@RequestParam String filename, @RequestParam String action){
+//        File file = new File("/tmp/dzsb/mv/" + filename);
+//        if(!file.exists()){
+//            return new ResultDTO(ResultEnum.FILE_NOT_EXIST);
+//        }
+//        MultipartFile multipartFile = FileUtil.fileToMultipartFile(file);
+//        Map<String, Object> postParams = new HashMap<>();
+//        postParams.put("video", multipartFile);
+//        postParams.put("action", action);
+//        String postJson = JSONObject.toJSONString(postParams);
+//        String responseJson = HttpClientUtil.doPost1("XXX", postJson);
+//        if(StringUtils.isEmpty(responseJson))
+//            return new ResultDTO(ResultEnum.REQUEST_FAILED);
+//
+//        JSONObject responseJsonObject = JSONObject.parseObject(responseJson);
+//        if(responseJsonObject.getIntValue("code") != 200){
+//            ResultDTO result = new ResultDTO(ResultEnum.CAL_FAILED);
+//            result.setData(responseJson);
+//            return result;
+//        }
+//        else{
+//            ResultDTO result = new ResultDTO(ResultEnum.SUCCESS);
+//            Map<String, String> advice = new HashMap<>();
+//            advice.put("error", responseJsonObject.getString("error_res"));
+//            advice.put("advice", responseJsonObject.getString("advice_res"));
+//            result.setData(advice);
+//            return result;
+//        }
+//
+//    }
 
 //
 //    private FileItem getMultipartFile(File file, String fieldName){

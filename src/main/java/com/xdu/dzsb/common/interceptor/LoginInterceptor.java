@@ -24,12 +24,12 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-//        String session = request.getHeader("session");
-//        System.out.println(session);
-//        if (StringUtils.isNotBlank(session) && !session.equals("")) {
-//            return redisOperator.hasKey(session);
-//        }
-//        return false;
-        return true;
+        String session = request.getHeader("session");
+        System.out.println(session);
+        if (StringUtils.isNotBlank(session)) {
+            return redisOperator.hasKey(session);
+        }
+        return false;
+//        return true;
     }
 }

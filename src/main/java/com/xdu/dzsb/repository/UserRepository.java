@@ -18,10 +18,12 @@ import java.util.Optional;
  * @description:
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, String> {
     
     Optional<User> findByOpenid(String openid);
-    
+
+    Optional<User> findByNickname(String nickname);
+
 //    @Override
 //    Optional<User> findByOpenid(String openid);
     

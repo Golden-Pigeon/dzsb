@@ -32,7 +32,7 @@ public class HistoryServiceImpl implements HistoryService {
         if(!history.isPresent())
             return new ResultDTO(ResultEnum.NO_HISTORY);
         ResultDTO result = new ResultDTO(ResultEnum.SUCCESS);
-        result.setData(history);
+        result.setData(history.get());
         return result;
     }
 
